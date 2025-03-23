@@ -10,7 +10,7 @@ export default function Home() {
       <section className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
         {/* Clima Actual */}
         <div className="flex flex-col items-center">
-          <h2 className="text-3xl font-bold mb-6 text-center text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-3 text-center text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Clima Actual
           </h2>
           <WeatherWidget />
@@ -18,7 +18,7 @@ export default function Home() {
   
         {/* Mapa Meteorológico */}
         <div className="flex flex-col items-center">
-          <h2 className="text-3xl font-bold mb-6 text-center text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-3 text-center text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Mapa Meteorológico
           </h2>
           <div className="w-full h-[600px]"> {/* Ajusta la altura si es necesario */}
@@ -29,7 +29,7 @@ export default function Home() {
   
       {/* Pronóstico más grande y centrado */}
       <section className="mt-16 text-center">
-        <h2 className="text-3xl font-bold mb-8 text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold mb-5 text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
           Pronóstico
         </h2>
         <ForecastWidget />
