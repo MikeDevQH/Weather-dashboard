@@ -22,11 +22,11 @@ const WeatherMap = () => {
   }
 
   return (
-    <div className=" shadow-lg dark:shadow-xl bg-card rounded-lg shadow-card border border-border overflow-hidden transition-all duration-300 hover:shadow-card-hover">
+    <div className="shadow-lg dark:shadow-xl bg-card rounded-lg shadow-card border border-border overflow-hidden transition-all duration-300 hover:shadow-card-hover">
       <div className="p-4 border-b border-border bg-gradient-primary">
         <LayerSelector activeLayer={activeLayer} setActiveLayer={setActiveLayer} />
       </div>
-      <div className="relative w-full h-[400px] md:h-[500px]">
+      <div className="relative w-full h-[400px] md:h-[550px]">
         <MapContainer style={{ height: "100%", width: "100%" }} center={[20, -100]} zoom={5} className="z-0">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -35,7 +35,6 @@ const WeatherMap = () => {
           <TileLayer url={getWeatherLayerUrl(activeLayer, API_KEY)} />
         </MapContainer>
       </div>
-     
     </div>
   )
 }
