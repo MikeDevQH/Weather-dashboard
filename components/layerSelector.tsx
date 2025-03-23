@@ -1,5 +1,7 @@
 "use client";
 import { WEATHER_LAYERS } from "@/lib/weatherLayers";
+import { useLanguage } from "@/lib/languageContext"
+
 
 type Props = {
   activeLayer: string;
@@ -7,6 +9,7 @@ type Props = {
 };
 
 const LayerSelector = ({ activeLayer, setActiveLayer }: Props) => {
+  const { t } = useLanguage()
   return (
     <div className="flex flex-wrap justify-between gap-2 mb-1">
       {WEATHER_LAYERS.map((layer) => (
@@ -19,7 +22,7 @@ const LayerSelector = ({ activeLayer, setActiveLayer }: Props) => {
           }`}
           onClick={() => setActiveLayer(layer.id)}
         >
-          {layer.name}
+          {t(layer.nameKey)}
         </button>
       ))}
     </div>

@@ -1,11 +1,10 @@
 export const WEATHER_LAYERS = [
-    { id: "clouds_new", name: "Nubosidad" },
-    { id: "precipitation_new", name: "Precipitación" },
-    { id: "pressure_new", name: "Presión" },
-    { id: "wind_new", name: "Viento" },
-    { id: "temp_new", name: "Temperatura" },
-  ];
-  
-  export const getWeatherLayerUrl = (layer: string, apiKey: string) =>
-    `https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid=${apiKey}`;
-  
+  { id: "clouds_new", nameKey: "weatherLayer.clouds" },
+  { id: "precipitation_new", nameKey: "weatherLayer.precipitation" },
+  { id: "pressure_new", nameKey: "weatherLayer.pressure" },
+  { id: "wind_new", nameKey: "weatherLayer.windSpeed" },
+  { id: "temp_new", nameKey: "weatherLayer.temperature" },
+];
+
+export const getWeatherLayerUrl = (layer: string, apiKey: string) =>
+  `https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid=${apiKey}`;

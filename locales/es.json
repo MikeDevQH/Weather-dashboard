@@ -1,0 +1,49 @@
+{
+  "title": "Panel del Clima",
+  "searchPlaceholder": "Buscar ciudad...",
+  "themeToggle": "Cambiar tema",
+  "currentWeather": "Clima Actual",
+  "weatherMap": "Mapa Meteorológico",
+  "forecast": "Pronóstico",
+  "loading": "Cargando...",
+  "error": "Error",
+  "noForecastData": "No hay datos de pronóstico disponibles.",
+  "locationPermissionDenied": "Permiso de ubicación denegado. Habilítalo en tu navegador.",
+
+
+  "weather": {
+    "loading": "Cargando clima...",
+    "errorFetching": "No se pudieron obtener los datos del clima.",
+    "cityId": "ID Ciudad",
+    "temperature": "Temperatura",
+    "tempMin": "Temp. Mínima",
+    "tempMax": "Temp. Máxima",
+    "humidity": "Humedad",
+    "pressure": "Presión",
+    "windSpeed": "Viento",
+    "visibility": "Visibilidad",
+    "clouds": "Nubosidad",
+    "rainLastHour": "Lluvia última hora",
+    "snowLastHour": "Nieve última hora",
+    "sunrise": "Amanecer",
+    "sunset": "Atardecer",
+    "timezone": "Zona horaria"
+  },
+
+  "weatherLayer": {
+    "clouds": "Nubosidad",
+    "windSpeed": "Viento",
+    "temperature": "Temperatura",
+    "pressure": "Presión",
+    "precipitation": "Precipitación"
+    
+  },
+
+  "weatherForecast":{
+    "errorGeolocation": "Geolocalización no soportada.",
+    "loading": "Cargando pronósticos...",
+    "notForecast": "No hay datos de pronóstico disponibles.",
+    "rain": "LLuvia",
+    "sensation": "Sensación"
+  }
+}

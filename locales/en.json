@@ -1,0 +1,48 @@
+{
+  "title": "Weather Dashboard",
+  "searchPlaceholder": "Search city...",
+  "themeToggle": "Toggle theme",
+  "currentWeather": "Current Weather",
+  "weatherMap": "Weather Map",
+  "forecast": "Forecast",
+  "loading": "Loading...",
+  "error": "Error",
+  "noForecastData": "No forecast data available.",
+  "locationPermissionDenied": "Location permission denied. Enable it in your browser.",
+
+
+  "weather": {
+    "loading": "Loading weather...",
+    "errorFetching": "Failed to fetch weather data.",
+    "cityId": "City ID",
+    "temperature": "Temperature",
+    "tempMin": "Min Temp",
+    "tempMax": "Max Temp",
+    "humidity": "Humidity",
+    "pressure": "Pressure",
+    "windSpeed": "Wind",
+    "visibility": "Visibility",
+    "clouds": "Cloudiness",
+    "rainLastHour": "Rain Last Hour",
+    "snowLastHour": "Snow Last Hour",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "timezone": "Time Zone"
+  },
+
+  "weatherLayer": {
+    "clouds": "Cloudiness",
+    "windSpeed": "Wind",
+    "temperature": "Temperature",
+    "pressure": "Pressure",
+    "precipitation": "Precipitation"
+    
+  },
+  "weatherForecast":{
+    "errorGeolocation": "Geolocation not supported.",
+    "loading": "Loading forecasts...",
+    "notForecast": "No forecast data available.",
+    "rain": "LRain",
+    "sensation": "Sensation"
+  }
+}

@@ -8,6 +8,7 @@ import {
   Umbrella,
   Wind,
 } from "lucide-react";
+import { useLanguage } from "@/lib/languageContext";
 
 const ForecastWidget = () => {
   const [forecast, setForecast] = useState<any[]>([]);
@@ -19,6 +20,8 @@ const ForecastWidget = () => {
   const [transitionDirection, setTransitionDirection] = useState<
     "next" | "prev"
   >("next");
+  const { t } = useLanguage();
+  const { language } = useLanguage();
   const itemsPerPage = 4;
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ForecastWidget = () => {
         }
       );
     } else {
-      setError("Geolocalización no soportada.");
+      setError(t("weatherForecast.errorGeolocation"));
       setLoading(false);
     }
   }, []);
@@ -69,7 +72,9 @@ const ForecastWidget = () => {
   if (loading) {
     return (
       <div className="w-full h-40 bg-card rounded-lg shadow-card border border-border flex items-center justify-center transition-all duration-300">
-        <div className="animate-pulse text-muted">Cargando pronóstico...</div>
+        <div className="animate-pulse text-muted">
+          {t("weatherForecast.loading")}
+        </div>
       </div>
     );
   }
@@ -77,9 +82,7 @@ const ForecastWidget = () => {
   if (error) {
     return (
       <div className="w-full bg-card rounded-lg shadow-card border border-border p-4 text-[hsl(var(--color-danger))] transition-all duration-300">
-        {hasLocationPermission
-          ? error
-          : "Permiso de ubicación denegado. Habilítalo en tu navegador."}
+        {t("locationPermissionDenied")}
       </div>
     );
   }
@@ -87,7 +90,7 @@ const ForecastWidget = () => {
   if (!forecast.length) {
     return (
       <div className="w-full bg-card rounded-lg shadow-card border border-border p-4 text-muted transition-all duration-300">
-        No hay datos de pronóstico disponibles.
+        {t("weatherForecast.notForecast")}
       </div>
     );
   }
@@ -100,7 +103,7 @@ const ForecastWidget = () => {
 
   return (
     <div className="bg-card rounded-lg shadow-card border border-border overflow-hidden transition-all duration-300 hover:shadow-card-hover">
-      {/* Controles de paginación */}
+      {/* Pagination controls*/}
       <div className="flex  items-center justify-between p-4 border-t border-border bg-gradient-primary">
         <button
           onClick={() => handlePageChange("prev")}
@@ -147,13 +150,13 @@ const ForecastWidget = () => {
           onClick={() => handlePageChange("next")}
           disabled={currentPage >= totalPages - 1 || isTransitioning}
           className="p-2 rounded-full bg-background dark:bg-background hover:transform hover:scale-105 text-primary disabled:opacity-50 disabled:bg-primary/5 disabled:text-primary/50 transition-all duration-300 hover:bg-primary/20 dark:hover:bg-primary/30 shadow-sm hover:shadow-md"
-          aria-label="Página siguiente"
+          aria-label="Next page"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
 
-      {/* Pronosticos */}
+      {/* Forecast*/}
       <div className="relative overflow-hidden">
         <div
           className={`transition-all duration-300 ${
@@ -183,18 +186,29 @@ const ForecastWidget = () => {
 
                 <div className="flex-grow">
                   <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
-                    <p className="font-semibold">
-                      {new Intl.DateTimeFormat("es-ES", {
-                        weekday: "short",
-                        day: "numeric",
-                        month: "short",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      }).format(new Date(item.dt * 1000))}
-                    </p>
-                    <p className="text-sm px-2 py-0.5 bg-primary/10 dark:bg-primary/20 text-primary rounded-full shadow-sm">
-                      Sensación: {Math.round(item.feelsLike)}°C
-                    </p>
+                  <p className="font-semibold">
+  {new Intl.DateTimeFormat(language, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(item.dt * 1000))}
+</p>
+                    <div className="flex flex-col gap-1">
+                      {/* Thermal sensation */}
+                      <p className="text-sm px-2 py-0.5 bg-primary/10 dark:bg-primary/20 text-primary rounded-full shadow-sm">
+                        {t("weatherForecast.sensation")}:{" "}
+                        {Math.round(item.feelsLike)}°C
+                      </p>
+
+                      {/* Rain (only if not 0) */}
+                      {item.rain !== 0 && (
+                        <p className="text-sm px-2 py-0.5 bg-primary/10 dark:bg-primary/20 text-primary rounded-full shadow-sm">
+                          {t("weatherForecast.rain")}: {item.rain} mm
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <p className="capitalize mb-2">{item.weather.description}</p>
@@ -215,12 +229,6 @@ const ForecastWidget = () => {
                       <span>{item.pop}%</span>
                     </div>
                   </div>
-
-                  {item.rain > 0 && (
-                    <p className="mt-2 text-sm text-primary bg-primary/10 dark:bg-primary/20 px-2 py-1 rounded-md inline-block shadow-sm">
-                      Lluvia: {item.rain} mm
-                    </p>
-                  )}
                 </div>
               </div>
             ))}

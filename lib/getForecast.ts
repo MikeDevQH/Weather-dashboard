@@ -20,8 +20,8 @@ export async function getForecast(lat: number, lon: number) {
       pressure: item.main.pressure,
       windSpeed: item.wind.speed,
       windDeg: item.wind.deg,
-      pop: item.pop * 100, // Convertir a porcentaje
-      rain: item.rain?.["3h"] || 0, // Volumen de lluvia en mm
+      pop: item.pop * 100, 
+      rain: item.rain?.["3h"] || 0, 
       weather: item.weather[0],
     }));
   } catch (error) {

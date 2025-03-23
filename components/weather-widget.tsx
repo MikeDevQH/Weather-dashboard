@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react"
 import { getWeatherByCoords } from "@/lib/getWeather"
 import { getUserLocation } from "@/lib/getUserLocation"
+import { useLanguage } from "@/lib/languageContext"
 
 const WeatherWidget = () => {
   const [weather, setWeather] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     async function fetchWeather() {
@@ -15,7 +17,7 @@ const WeatherWidget = () => {
         setLoading(true)
         const { lat, lon } = await getUserLocation()
         const data = await getWeatherByCoords(lat, lon)
-        if (!data) throw new Error("No se pudieron obtener los datos del clima.")
+        if (!data) throw new Error(t("weather.errorFetching"));
         setWeather(data)
       } catch (err: any) {
         setError(err.message)
@@ -30,7 +32,7 @@ const WeatherWidget = () => {
   if (loading) {
     return (
       <div className="w-full h-40 bg-card rounded-lg shadow-card border border-border flex items-center justify-center transition-all duration-300">
-        <div className="animate-pulse text-muted">Cargando clima...</div>
+        <div className="animate-pulse text-muted">{t("weather.loading")}</div>
       </div>
     )
   }
@@ -38,7 +40,7 @@ const WeatherWidget = () => {
   if (error) {
     return (
       <div className="w-full bg-card rounded-lg shadow-card border border-border p-4 text-[hsl(var(--color-danger))] transition-all duration-300">
-        Error: {error}
+        {t("locationPermissionDenied")}
       </div>
     )
   }
@@ -51,7 +53,7 @@ const WeatherWidget = () => {
             <h3 className="text-xl font-bold">
               {weather.city}, {weather.country}
             </h3>
-            <p className="text-white/80 text-sm mt-1">ID Ciudad: {weather.id}</p>
+            <p className="text-white/80 text-sm mt-1">{t("weather.cityId")}: {weather.id}</p>
           </div>
           <div className="flex items-center">
             <img
@@ -72,22 +74,22 @@ const WeatherWidget = () => {
       </div>
 
       <div className="p-4 md:p-6 space-y-3">
-        {/* Temperatura */}
+        {/* Temperature */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/01d.png`}
-            label="Temperatura"
+            label={t("weather.temperature")}
             value={`${weather.temperature}°C`}
             highlight
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/01n.png`}
-            label="Temp. Mínima"
+            label={t("weather.tempMin")}
             value={`${weather.tempMin}°C`}
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/01d.png`}
-            label="Temp. Máxima"
+            label={t("weather.tempMax")}
             value={`${weather.tempMax}°C`}
             highlight
           />
@@ -97,18 +99,18 @@ const WeatherWidget = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/50d.png`}
-            label="Humedad"
+            label={t("weather.humidity")}
             value={`${weather.humidity}%`}
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/50n.png`}
-            label="Presión"
+            label={t("weather.pressure")}
             value={`${weather.pressure} hPa`}
             highlight
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/10d.png`}
-            label="Viento"
+            label={t("weather.windSpeed")}
             value={`${weather.windSpeed} m/s (${weather.windDirection}°)`}
           />
         </div>
@@ -117,13 +119,13 @@ const WeatherWidget = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/50d.png`}
-            label="Visibilidad"
+            label={t("weather.visibility")}
             value={`${weather.visibility} km`}
             highlight
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/04d.png`}
-            label="Nubosidad"
+            label={t("weather.clouds")}
             value={`${weather.clouds}%`}
           />
         </div>
@@ -134,7 +136,7 @@ const WeatherWidget = () => {
             {weather.rainLastHour > 0 && (
               <WeatherItem
                 icon={`https://openweathermap.org/img/wn/09d.png`}
-                label="Lluvia última hora"
+                label={t("weather.rainLastHour")}
                 value={`${weather.rainLastHour} mm`}
                 highlight
               />
@@ -142,7 +144,7 @@ const WeatherWidget = () => {
             {weather.snowLastHour > 0 && (
               <WeatherItem
                 icon={`https://openweathermap.org/img/wn/13d.png`}
-                label="Nieve última hora"
+                label={t("weather.snowLastHour")}
                 value={`${weather.snowLastHour} mm`}
               />
             )}
@@ -153,13 +155,13 @@ const WeatherWidget = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/01d.png`}
-            label="Amanecer"
+            label={t("weather.sunrise")}
             value={new Date(weather.sunrise * 1000).toLocaleTimeString()}
             highlight
           />
           <WeatherItem
             icon={`https://openweathermap.org/img/wn/01n.png`}
-            label="Atardecer"
+            label={t("weather.sunset")}
             value={new Date(weather.sunset * 1000).toLocaleTimeString()}
           />
         </div>
@@ -167,7 +169,7 @@ const WeatherWidget = () => {
         {/* Zona horaria */}
         <div className="mt-3 p-3 bg-primary/10 dark:bg-primary/20 rounded-md border border-primary/20 transition-all duration-300 shadow-sm">
           <p className="font-medium">
-            <span className="text-primary">Zona horaria:</span> {weather.timezone}
+            <span className="text-primary">{t("weather.timezone")}:</span> {weather.timezone}
           </p>
         </div>
       </div>
