@@ -42,7 +42,7 @@
     "errorGeolocation": "Geolocation not supported.",
     "loading": "Loading forecasts...",
     "notForecast": "No forecast data available.",
-    "rain": "LRain",
+    "rain": "Rain",
     "sensation": "Sensation"
   }
 }
