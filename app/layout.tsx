@@ -1,11 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import Script from "next/script" 
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import { LanguageProvider } from "@/components/language-provider"
+import AnimatedBackground from "@/components/animated-background"
 
 // Load custom fonts and assign CSS variables
 const geistSans = Geist({
@@ -28,20 +29,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-
-           {/* Theme provider for dark/light mode support */}
+        {/* Theme provider for dark/light mode support */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          
           {/* Language provider for localization handling */}
           <LanguageProvider>
-
+            {/* Animated background */}
+            <AnimatedBackground />
             {/* Load Leaflet OpenWeatherMap script lazily */}
             <Script src="https://unpkg.com/leaflet-openweathermap/leaflet-openweathermap.js" strategy="lazyOnload" />
-
             <Header /> {/* Render main header */}
-
             {/* Main content area with dynamic styles */}
-            <main className="min-h-screen bg-background text-foreground pt-[var(--header-height)]">{children}</main>
+            <main className="min-h-screen text-foreground pt-[var(--header-height)]">{children}</main>
           </LanguageProvider>
         </ThemeProvider>
       </body>
